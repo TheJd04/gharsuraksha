@@ -1,0 +1,177 @@
+// GharSuraksha - Home Inventory & Insurance Intelligence Platform
+// Prisma Schema for PostgreSQL (Neon Serverless)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ─── Authentication ───────────────────────────────────────────────
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  items        Item[]
+  policies     Policy[]
+  claims       Claim[]
+  chatMessages ChatMessage[]
+
+  @@map("users")
+}
+
+// ─── Inventory ────────────────────────────────────────────────────
+
+model Category {
+  id          String  @id @default(cuid())
+  name        String  @unique
+  icon        String  @default("📦")
+  description String?
+  isPreseeded Boolean @default(false)
+
+  items       Item[]
+  presetItems PresetItem[]
+
+  @@map("categories")
+}
+
+/// Pre-seeded catalog of common Indian household items
+model PresetItem {
+  id             String   @id @default(cuid())
+  name           String
+  nameHindi      String?
+  categoryId     String
+  category       Category @relation(fields: [categoryId], references: [id])
+  defaultValue   Float    @default(0)
+  brand          String?
+  description    String?
+
+  @@map("preset_items")
+}
+
+/// User's actual inventory items
+model Item {
+  id             String      @id @default(cuid())
+  userId         String
+  user           User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  categoryId     String
+  category       Category    @relation(fields: [categoryId], references: [id])
+  name           String
+  brand          String?
+  model          String?
+  estimatedValue Float       @default(0)
+  room           String?
+  photoUrl       String?
+  purchaseDate   DateTime?
+  condition      String      @default("good") // good, fair, poor, new
+  notes          String?
+  coverageStatus String      @default("unknown") // covered, uncovered, partial, unknown
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+
+  claimItems     ClaimItem[]
+
+  @@index([userId])
+  @@index([categoryId])
+  @@map("items")
+}
+
+// ─── Insurance Policies ───────────────────────────────────────────
+
+model Policy {
+  id           String   @id @default(cuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  provider     String
+  policyNumber String?
+  type         String   // home, car, health, life, fire, travel, etc.
+  sumInsured   Float    @default(0)
+  premium      Float    @default(0)
+  startDate    DateTime?
+  endDate      DateTime?
+  rawText      String?  // Extracted text from uploaded PDF
+  parsedData   Json?    // AI-parsed structured data
+  documentUrl  String?
+  status       String   @default("active") // active, expired, cancelled
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  coverages    PolicyCoverage[]
+
+  @@index([userId])
+  @@map("policies")
+}
+
+model PolicyCoverage {
+  id                String   @id @default(cuid())
+  policyId          String
+  policy            Policy   @relation(fields: [policyId], references: [id], onDelete: Cascade)
+  coverageType      String   // structure, contents, electronics, valuables, etc.
+  description       String?
+  coverageLimit     Float    @default(0)
+  deductible        Float    @default(0)
+  exclusions        Json?    // Array of exclusion strings
+  coveredCategories Json?    // Array of category names this coverage applies to
+  createdAt         DateTime @default(now())
+
+  @@index([policyId])
+  @@map("policy_coverages")
+}
+
+// ─── Claims ───────────────────────────────────────────────────────
+
+model Claim {
+  id           String   @id @default(cuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title        String
+  incidentType String   // theft, fire, flood, earthquake, damage, other
+  incidentDate DateTime
+  description  String?
+  status       String   @default("draft") // draft, submitted, processing, approved, rejected
+  totalValue   Float    @default(0)
+  reportData   Json?    // Generated report JSON
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  claimItems   ClaimItem[]
+
+  @@index([userId])
+  @@map("claims")
+}
+
+model ClaimItem {
+  id               String @id @default(cuid())
+  claimId          String
+  claim            Claim  @relation(fields: [claimId], references: [id], onDelete: Cascade)
+  itemId           String
+  item             Item   @relation(fields: [itemId], references: [id])
+  claimedValue     Float  @default(0)
+  damageDescription String?
+
+  @@index([claimId])
+  @@map("claim_items")
+}
+
+// ─── AI Chat ──────────────────────────────────────────────────────
+
+model ChatMessage {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role      String   // user, assistant, system
+  content   String
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@map("chat_messages")
+}
