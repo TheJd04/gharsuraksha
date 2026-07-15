@@ -16,10 +16,6 @@ export default function InventoryPage() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [isSeeding, setIsSeeding] = useState(false);
 
-  useEffect(() => {
-    fetchItems();
-  }, []);
-
   async function fetchItems() {
     try {
       const res = await fetch("/api/items");
@@ -39,6 +35,10 @@ export default function InventoryPage() {
       setLoading(false);
     }
   }
+
+  useEffect(() => {
+    fetchItems();
+  }, []);
 
   async function handleSeedItems() {
     setIsSeeding(true);

@@ -14,10 +14,6 @@ export default function PoliciesPage() {
   const [loading, setLoading] = useState(true);
   const [seeding, setSeeding] = useState(false);
 
-  useEffect(() => {
-    fetchPolicies();
-  }, []);
-
   async function fetchPolicies() {
     try {
       const res = await fetch("/api/policies");
@@ -31,6 +27,10 @@ export default function PoliciesPage() {
       setLoading(false);
     }
   }
+
+  useEffect(() => {
+    fetchPolicies();
+  }, []);
 
   async function handleSeedPolicies() {
     setSeeding(true);
