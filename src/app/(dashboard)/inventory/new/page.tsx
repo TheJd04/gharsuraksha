@@ -5,6 +5,22 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ITEM_CONDITIONS, ROOMS } from "@/lib/utils";
 import type { Category } from "@prisma/client";
+import { Sparkles } from "lucide-react";
+
+const QUICK_ADD_TEMPLATES = [
+  { name: "Silverware & Utensils", categoryName: "Kitchen Appliances", estimatedValue: "15000", brand: "Generic", room: "Kitchen" },
+  { name: "Smart TV", categoryName: "Electronics", estimatedValue: "45000", brand: "Samsung", room: "Living Room" },
+  { name: "Laptop", categoryName: "Electronics", estimatedValue: "60000", brand: "Apple", room: "Home Office" },
+  { name: "Refrigerator", categoryName: "Kitchen Appliances", estimatedValue: "30000", brand: "LG", room: "Kitchen" },
+];
+
+const BRAND_MODELS: Record<string, string[]> = {
+  "Samsung": ["Galaxy S24", "Galaxy S23", "QN90C TV", "The Frame TV", "Bespoke Refrigerator"],
+  "Apple": ["MacBook Pro 14", "MacBook Air M2", "iPhone 15 Pro", "iPad Pro", "Apple Watch Ultra", "AirPods Pro"],
+  "Sony": ["PlayStation 5", "Bravia XR OLED", "WH-1000XM5 Headphones", "Alpha a7 IV Camera"],
+  "LG": ["C3 OLED TV", "G3 OLED TV", "InstaView Refrigerator", "WashTower"],
+  "Whirlpool": ["Top Load Washer", "Front Load Washer", "French Door Refrigerator"],
+};
 
 export default function NewItemPage() {
   const router = useRouter();
@@ -124,6 +140,18 @@ export default function NewItemPage() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleQuickAdd = (template: typeof QUICK_ADD_TEMPLATES[0]) => {
+    const category = categories.find((c) => c.name === template.categoryName);
+    setFormData((prev) => ({
+      ...prev,
+      name: template.name,
+      categoryId: category ? category.id : prev.categoryId,
+      brand: template.brand,
+      estimatedValue: template.estimatedValue,
+      room: template.room,
+    }));
+  };
+
   return (
     <div className="max-w-4xl mx-auto fade-in pb-12">
       <div className="flex items-center gap-4 mb-8">
@@ -191,6 +219,25 @@ export default function NewItemPage() {
 
         {/* Right Column: Form */}
         <div className="md:col-span-2">
+          {/* Quick Add Section */}
+          <div className="mb-6">
+            <h3 className="text-sm font-medium text-[var(--muted-foreground)] mb-3 flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-[var(--primary)]" /> Quick Add Ideas
+            </h3>
+            <div className="flex flex-wrap gap-2">
+              {QUICK_ADD_TEMPLATES.map((template) => (
+                <button
+                  key={template.name}
+                  type="button"
+                  onClick={() => handleQuickAdd(template)}
+                  className="px-3 py-1.5 rounded-full text-sm bg-[var(--secondary)] border border-[var(--border)] hover:border-[var(--primary)] hover:text-[var(--primary)] transition-colors"
+                >
+                  {template.name}
+                </button>
+              ))}
+            </div>
+          </div>
+
           <form onSubmit={handleSubmit} className="glass-card p-6 space-y-6">
             {error && (
               <div className="bg-red-500/10 border border-red-500/30 text-red-400 rounded-lg px-4 py-3 text-sm">
@@ -248,22 +295,36 @@ export default function NewItemPage() {
                 <label className="label">Brand (Optional)</label>
                 <input
                   name="brand"
+                  list="brands-list"
                   value={formData.brand}
                   onChange={handleChange}
                   className="input-field"
                   placeholder="e.g. Samsung"
                 />
+                <datalist id="brands-list">
+                  {Object.keys(BRAND_MODELS).map((brand) => (
+                    <option key={brand} value={brand} />
+                  ))}
+                </datalist>
               </div>
 
               <div>
                 <label className="label">Model (Optional)</label>
                 <input
                   name="model"
+                  list="models-list"
                   value={formData.model}
                   onChange={handleChange}
                   className="input-field"
                   placeholder="e.g. QN55Q60A"
                 />
+                <datalist id="models-list">
+                  {formData.brand && BRAND_MODELS[formData.brand]
+                    ? BRAND_MODELS[formData.brand].map((model) => (
+                        <option key={model} value={model} />
+                      ))
+                    : null}
+                </datalist>
               </div>
 
               <div>

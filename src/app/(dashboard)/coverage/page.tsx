@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { formatCurrency } from "@/lib/utils";
 import type { AIGapAnalysisResult } from "@/lib/schemas";
+import { PrintButton } from "@/components/ui/print-button";
 
 export default function CoveragePage() {
   const [loading, setLoading] = useState(false);
@@ -39,22 +40,25 @@ export default function CoveragePage() {
             Cross-reference your inventory against your policies to find hidden risks.
           </p>
         </div>
-        <button
-          onClick={runAnalysis}
-          disabled={loading}
-          className="btn-primary flex items-center gap-2"
-        >
-          {loading ? (
-            <>
-              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-              Analyzing...
-            </>
-          ) : (
-            <>
-              <span>🔍</span> Run New Analysis
-            </>
-          )}
-        </button>
+        <div className="flex gap-2">
+          {analysis && <PrintButton />}
+          <button
+            onClick={runAnalysis}
+            disabled={loading}
+            className="btn-primary flex items-center gap-2"
+          >
+            {loading ? (
+              <>
+                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                Analyzing...
+              </>
+            ) : (
+              <>
+                <span>🔍</span> Run New Analysis
+              </>
+            )}
+          </button>
+        </div>
       </div>
 
       {error && (

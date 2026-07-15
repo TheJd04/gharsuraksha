@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { formatCurrency, formatDate } from "@/lib/utils";
 import type { Item, Category } from "@prisma/client";
+import { PrintButton } from "@/components/ui/print-button";
 
 type ItemWithCategory = Item & { category: Category };
 
@@ -77,6 +78,7 @@ export default function InventoryPage() {
           >
             {isSeeding ? "Generating..." : "🧪 Test Run"}
           </button>
+          <PrintButton />
           <Link href="/inventory/new" className="btn-primary flex items-center gap-2">
             <span>➕</span> Add Item
           </Link>

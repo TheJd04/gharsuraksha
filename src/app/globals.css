@@ -434,3 +434,47 @@
   text-align: center;
   color: var(--muted-foreground);
 }
+
+/* Print Styles */
+@media print {
+  /* Hide UI elements that shouldn't be printed */
+  .print-hidden,
+  aside, 
+  nav,
+  header,
+  footer,
+  .sidebar,
+  button:not(.print-visible) {
+    display: none !important;
+  }
+
+  /* Reset layout for printing */
+  body, main, .glass-card, .glass-panel {
+    background: white !important;
+    color: black !important;
+    box-shadow: none !important;
+    border: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Make text black for better contrast and ink saving */
+  * {
+    color: black !important;
+    text-shadow: none !important;
+  }
+
+  /* Ensure content takes full width */
+  main, .dashboard-content, .container {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Avoid page breaks inside cards/rows */
+  .glass-card, tr, .print-block {
+    page-break-inside: avoid;
+  }
+}
+

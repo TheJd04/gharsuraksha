@@ -2,6 +2,7 @@
 
 import { useRef, useEffect, useState } from "react";
 import { useChat } from "@ai-sdk/react";
+import { PrintButton } from "@/components/ui/print-button";
 
 export default function AdvisorPage() {
   const { messages, sendMessage, status } = useChat();
@@ -28,13 +29,16 @@ export default function AdvisorPage() {
 
   return (
     <div className="max-w-4xl mx-auto h-[calc(100vh-100px)] flex flex-col fade-in">
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold flex items-center gap-2">
-          <span>🤖</span> AI Insurance Advisor
-        </h1>
-        <p className="text-[var(--muted-foreground)] mt-1">
-          Ask questions about your inventory, coverage, or how to handle a claim. I know your portfolio!
-        </p>
+      <div className="mb-6 flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold flex items-center gap-2">
+            <span>🤖</span> AI Insurance Advisor
+          </h1>
+          <p className="text-[var(--muted-foreground)] mt-1">
+            Ask questions about your inventory, coverage, or how to handle a claim. I know your portfolio!
+          </p>
+        </div>
+        <PrintButton />
       </div>
 
       <div className="glass-card flex-1 flex flex-col overflow-hidden">

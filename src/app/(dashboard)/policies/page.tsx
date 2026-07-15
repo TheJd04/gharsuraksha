@@ -5,6 +5,7 @@ import Link from "next/link";
 import { formatCurrency, formatDate } from "@/lib/utils";
 import type { Policy, PolicyCoverage } from "@prisma/client";
 import { TooltipEducation } from "@/components/ui/tooltip-education";
+import { PrintButton } from "@/components/ui/print-button";
 
 type PolicyWithCoverages = Policy & { coverages: PolicyCoverage[] };
 
@@ -69,6 +70,7 @@ export default function PoliciesPage() {
           >
             {seeding ? "Generating..." : "🧪 Generate Samples"}
           </button>
+          <PrintButton />
           <Link href="/policies/new" className="btn-primary flex items-center gap-2">
             <span>➕</span> Add Policy
           </Link>
