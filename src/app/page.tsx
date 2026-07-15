@@ -4,100 +4,115 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { CheckCircle } from "lucide-react";
 import CountUp from "react-countup";
+import { useEffect, useState } from "react";
 
 export default function LandingPage() {
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => setIsMounted(true), []);
+
+  if (!isMounted) return null;
+
   return (
-    <div className="min-h-screen bg-[var(--background)] font-sans text-[var(--foreground)] selection:bg-[var(--primary)] selection:text-white">
-      {/* Navbar */}
+    <div className="min-h-screen bg-[#0f1219] font-sans text-[#f5f5f5] selection:bg-[#2a5cd4] selection:text-white">
+      {/* 1. Navbar */}
       <motion.nav
         initial={{ y: -68 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className="fixed top-0 w-full z-50 border-b border-[var(--primary)]/20 bg-[var(--background)]/90 backdrop-blur-md h-[68px]"
+        className="sticky top-0 w-full z-50 bg-[#0f1219] border-b border-[rgba(42,92,212,0.2)] h-[68px] flex items-center justify-between px-6"
       >
-        <div className="max-w-7xl mx-auto px-6 h-full flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="font-heading font-bold text-[17px] tracking-wide text-white">GHARSURAKSHA</span>
-          </div>
-          <div className="hidden md:flex items-center gap-6 font-sans text-sm text-[var(--secondary-foreground)]">
-            <Link href="#modules" className="hover:text-white transition-colors">Modules</Link>
-            <Link href="#how-it-works" className="hover:text-white transition-colors">Process</Link>
-            <Link href="#security" className="hover:text-white transition-colors">Security</Link>
-          </div>
-          <div className="flex items-center gap-4">
-            <Link href="/login" className="text-sm font-sans text-[var(--secondary-foreground)] hover:text-white transition-colors">Sign In</Link>
-            <Link href="/register" className="bg-[var(--primary)] text-white font-sans text-sm px-6 py-2.5 rounded hover:scale-105 transition-transform duration-150">
-              Get Started
-            </Link>
-          </div>
+        <div className="font-heading font-bold text-[17px] text-[#f5f5f5]">
+          Summit Roofing
+        </div>
+        <div className="hidden md:flex items-center gap-6 font-sans font-normal text-[14px] text-[#c0cce0]">
+          <Link href="#services" className="hover:text-white transition-colors">Services</Link>
+          <Link href="#materials" className="hover:text-white transition-colors">Materials</Link>
+          <Link href="#emergency" className="hover:text-white transition-colors">Emergency</Link>
+          <Link href="#about" className="hover:text-white transition-colors">About</Link>
+          <Link href="#quote" className="hover:text-white transition-colors">Quote</Link>
+        </div>
+        <div>
+          <Link href="#quote" className="bg-[#2a5cd4] text-white font-sans font-normal text-[14px] px-6 py-2.5 rounded-[4px] hover:scale-[1.03] transition-transform duration-150 inline-block">
+            Get a Free Quote
+          </Link>
         </div>
       </motion.nav>
 
-      {/* Hero Section */}
-      <section 
-        className="relative min-h-screen w-full overflow-hidden bg-[var(--background)] flex items-center bg-cover bg-center"
-        style={{ backgroundImage: 'linear-gradient(to right, rgba(13, 11, 9, 0.95) 20%, rgba(13, 11, 9, 0.6) 80%), url("/landing-bg.png")' }}
-      >
-        {/* Background Text */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 pointer-events-none w-full text-center overflow-hidden">
-          <span className="font-heading font-extrabold text-[clamp(80px,20vw,360px)] leading-none text-white opacity-[0.02] whitespace-nowrap tracking-tighter block">
-            GHARSURAKSHA
-          </span>
+      {/* 2. Hero */}
+      <section className="relative min-h-[100vh] w-full overflow-hidden bg-[#0f1219]">
+        {/* Background Image */}
+        <img 
+          src="https://images.unsplash.com/photo-1632759145351-1d592919f522?auto=format&fit=crop&q=80&w=2500" 
+          alt="Aerial view of premium slate roof installation on London terraced house" 
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} 
+        />
+        
+        {/* Gradient overlay */}
+        <div 
+          className="absolute inset-0 z-[1]" 
+          style={{ background: 'linear-gradient(to right, rgba(15,18,25,0.93) 0%, rgba(15,18,25,0.72) 55%, transparent 100%)' }}
+        ></div>
+
+        {/* Background text "SUMMIT" */}
+        <div 
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-0 font-heading font-extrabold text-[clamp(220px,32vw,480px)] text-[#f5f5f5] opacity-[0.03] pointer-events-none select-none"
+        >
+          SUMMIT
         </div>
 
-        {/* Content Panel */}
-        <div className="relative z-10 flex flex-col justify-center pl-[clamp(24px,6vw,96px)] w-full md:w-[70%]">
-          <motion.div
+        {/* Content panel */}
+        <div className="absolute left-0 top-0 h-full w-full md:w-[54%] z-10 pl-[clamp(24px,6vw,96px)] flex flex-col justify-center">
+          <div className="font-sans font-light text-[13px] tracking-[0.14em] uppercase text-[#7a9cd4] mb-4">
+            AWARD-WINNING ROOFING CONTRACTORS
+          </div>
+          
+          <motion.h1
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
+            className="font-heading font-extrabold text-[clamp(50px,7vw,128px)] leading-[1.0] text-[#f5f5f5]"
           >
-            <div className="font-sans font-light text-[13px] tracking-[0.14em] uppercase text-[var(--primary)] mb-6">
-              AI-POWERED INSURANCE INTELLIGENCE
-            </div>
-            <h1 className="font-heading font-extrabold text-[clamp(45px,7vw,120px)] leading-[1.05] text-white tracking-tight">
-              KNOW YOUR ASSETS.<br />
-              <span className="text-[var(--primary)]">PROTECT YOUR HOME.</span>
-            </h1>
-          </motion.div>
+            YOUR HOME.<br />
+            PROTECTED.
+          </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
-            className="font-sans font-normal text-[18px] text-[var(--secondary-foreground)] mt-6 max-w-[500px] leading-[1.6]"
+            className="font-sans font-normal text-[18px] text-[#c0cce0] mt-[20px] max-w-[460px] leading-[1.6]"
           >
-            Award-winning home inventory platform for India. Over 400+ items recognized. Stop guessing your coverage gaps and stay prepared.
+            Award-winning roofing contractors for London and the South East. 500+ roofs completed. 15-year workmanship guarantee.
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5, ease: "easeOut" }}
-            className="flex flex-col sm:flex-row gap-4 mt-10"
+            className="flex flex-col sm:flex-row gap-[12px] mt-[32px]"
           >
-            <Link href="/register" className="bg-[var(--primary)] text-white font-sans text-[15px] px-7 py-3.5 rounded hover:scale-[1.03] transition-transform duration-150 inline-flex justify-center items-center font-medium">
-              Start Free Inventory
+            <Link href="#quote" className="bg-[#2a5cd4] text-white font-sans font-normal text-[15px] px-[28px] py-[14px] rounded-[4px] text-center inline-block">
+              Get a Free Quote
             </Link>
-            <Link href="#modules" className="bg-transparent border border-white/30 text-white font-sans text-[15px] px-7 py-3.5 rounded hover:bg-white/5 transition-colors duration-150 inline-flex justify-center items-center gap-2 group">
-              <span className="w-1.5 h-1.5 bg-[var(--primary)] rounded-full group-hover:animate-ping"></span>
-              See How It Works →
+            <Link href="#emergency" className="bg-transparent border border-[rgba(255,255,255,0.4)] text-[#f5f5f5] font-sans font-normal text-[15px] px-[28px] py-[14px] rounded-[4px] text-center inline-flex items-center justify-center gap-[8px]">
+              <span className="w-[6px] h-[6px] bg-[#e53e3e] rounded-full"></span>
+              Emergency Roofing →
             </Link>
           </motion.div>
 
-          {/* Count-Up Stats Row */}
-          <div className="flex flex-wrap gap-x-12 gap-y-8 mt-16 lg:mt-20">
+          {/* Count-up stats */}
+          <div className="flex flex-row flex-wrap gap-[48px] mt-[48px]">
             {[
-              { value: 400, suffix: "+", label: "Pre-loaded Items" },
-              { value: 15, suffix: "", label: "Categories" },
-              { value: 100, suffix: "%", label: "AI Powered" },
-              { value: 0, prefix: "₹", label: "To Get Started" }
+              { value: 500, suffix: "+", label: "Roofs Completed" },
+              { value: 15, suffix: "yr", label: "Guarantee" },
+              { value: 48, suffix: "hr", label: "Emergency" },
+              { value: 4.9, suffix: "★", label: "Google Rating", decimals: 1 }
             ].map((stat, i) => (
               <div key={i} className="flex flex-col">
-                <div className="font-heading font-bold text-[48px] lg:text-[56px] text-[var(--primary)] leading-none">
-                  {stat.prefix}<CountUp end={stat.value} duration={2} enableScrollSpy scrollSpyOnce />{stat.suffix}
+                <div className="font-heading font-bold text-[56px] text-[#2a5cd4] leading-[1]">
+                  <CountUp end={stat.value} decimals={stat.decimals || 0} duration={2} enableScrollSpy scrollSpyOnce />{stat.suffix}
                 </div>
-                <div className="font-sans font-light text-[13px] text-[var(--secondary-foreground)] tracking-[0.06em] uppercase mt-2">
+                <div className="font-sans font-light text-[13px] text-[#7a9cd4] tracking-[0.06em] uppercase">
                   {stat.label}
                 </div>
               </div>
@@ -106,170 +121,240 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Services / Features Row */}
-      <section id="modules" className="bg-[var(--background)] py-24 px-[clamp(24px,6vw,96px)] border-t border-white/5">
-        <div className="max-w-7xl mx-auto">
-          <div className="font-sans font-light text-[12px] tracking-[0.14em] uppercase text-[var(--primary)] mb-8">
-            CORE MODULES
-          </div>
-          <h2 className="font-heading font-bold text-[clamp(32px,4vw,60px)] text-white mb-12 leading-tight">
-            Everything You Need to <br />Protect Your Home.
-          </h2>
+      {/* 3. Services */}
+      <section id="services" className="bg-[#0f1219] py-[80px] px-[clamp(24px,6vw,96px)]">
+        <div className="font-sans font-light text-[12px] tracking-[0.14em] uppercase text-[#2a5cd4] mb-[48px]">
+          OUR SERVICES
+        </div>
+        <h2 className="font-heading font-bold text-[clamp(32px,4vw,60px)] text-[#f5f5f5] mb-0">
+          ROOFING SERVICES
+        </h2>
 
-          <div className="flex flex-col border-t border-white/10">
-            {[
-              { name: "AI Photo Cataloging", desc: "Snap a photo of any item. Gemini Vision AI identifies it, estimates value, and adds it to your inventory automatically.", meta: "Instant" },
-              { name: "Policy Intelligence", desc: "Upload your insurance policies. AI parses coverage details, limits, deductibles, and exclusions into a clear dashboard.", meta: "Automated" },
-              { name: "Coverage Gap Analyzer", desc: "Cross-references your inventory against your policies. See exactly what's covered, what's not, and what's under-insured.", meta: "Intelligent" },
-              { name: "Claims Generator", desc: "After a loss event, select affected items and generate a professional, structured claim report instantly.", meta: "Stress-Free" },
-            ].map((service, idx) => (
-              <motion.div
-                key={idx}
-                whileHover={{ y: -4 }}
-                transition={{ duration: 0.2 }}
-                className="group flex flex-col md:flex-row md:items-center justify-between py-8 border-b border-white/10 cursor-pointer hover:border-l-[3px] hover:border-l-[var(--primary)] hover:pl-5 hover:shadow-[0_4px_20px_rgba(217,119,6,0.15)] transition-all duration-200 ease-out bg-[var(--background)]"
-              >
-                <div className="md:w-2/3">
-                  <h3 className="font-heading font-bold text-[22px] text-white group-hover:text-[var(--primary)] transition-colors">
-                    {service.name}
-                  </h3>
-                  <p className="font-sans text-[15px] text-[#8a7f76] mt-2">
-                    {service.desc}
-                  </p>
-                </div>
-                <div className="flex items-center gap-4 mt-4 md:mt-0">
-                  <span className="font-sans font-light text-[14px] text-[var(--secondary-foreground)]">{service.meta}</span>
-                  <span className="text-[24px] text-[var(--primary)] group-hover:translate-x-2 transition-transform">→</span>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+        <div className="mt-8 flex flex-col">
+          {[
+            { name: "New Roof Installation", desc: "Full new roof installation from groundwork to ridge tiles. All materials, felt, battens, and tiles included.", price: "from £3,500" },
+            { name: "Re-Roofing & Replacement", desc: "Strip and re-lay on existing structure. New breathable felt, treated battens, and tiles to match or upgrade.", price: "from £2,800" },
+            { name: "Repairs & Maintenance", desc: "Broken tiles, ridge issues, valleys, chimney lead flashings, and pointing. Same-week availability.", price: "from £150" },
+            { name: "Guttering & Drainage", desc: "Full replacement, cleaning, and repair. UPVC, cast iron, and aluminium. Includes downpipes and brackets.", price: "from £400" },
+          ].map((srv, i) => (
+            <motion.div
+              key={i}
+              whileHover={{ y: -4 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="flex flex-col md:flex-row justify-between md:items-center cursor-pointer border-t-[0.5px] border-[rgba(255,255,255,0.1)] py-[32px] hover:border-l-[3px] hover:border-l-[#2a5cd4] hover:pl-[16px] hover:shadow-[0_4px_20px_rgba(42,92,212,0.25)] transition-all duration-150 group"
+            >
+              <div className="md:w-2/3">
+                <h3 className="font-heading font-bold text-[22px] text-[#f5f5f5]">{srv.name}</h3>
+                <p className="font-sans font-normal text-[15px] text-[#8a9ab4] mt-[6px]">{srv.desc}</p>
+              </div>
+              <div className="flex items-center gap-[16px] mt-4 md:mt-0">
+                <span className="font-sans font-light text-[14px] text-[#7a9cd4]">{srv.price}</span>
+                <span className="text-[#2a5cd4] text-[24px]">→</span>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </section>
 
-      {/* Trust Badges Strip */}
-      <div className="w-full bg-[var(--primary)] py-6 px-[clamp(24px,6vw,96px)] flex flex-wrap justify-center items-center gap-x-8 lg:gap-x-12 gap-y-4">
-        {["Bank-Grade Encryption", "Gemini AI Powered", "India specific catalog", "100% Privacy", "Export Anywhere"].map((badge, i) => (
-          <div key={i} className="flex items-center gap-2">
-            <CheckCircle className="w-4 h-4 text-white" />
+      {/* 4. Material Cards */}
+      <section id="materials" className="bg-[#111827] py-[80px] px-[clamp(24px,6vw,96px)]">
+        <h2 className="font-heading font-bold text-[clamp(32px,4vw,60px)] text-[#f5f5f5] mb-[48px]">
+          ROOFING MATERIALS
+        </h2>
+        
+        <div className="flex flex-col md:flex-row gap-[24px]">
+          {[
+            { img: "https://images.unsplash.com/photo-1628102491629-77858ab5721d?auto=format&fit=crop&q=80&w=800", name: "Concrete & Clay Tiles", desc: "The most popular choice. 50yr lifespan. Available in 40+ colours.", life: "25–50 year lifespan" },
+            { img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800", name: "GRP Flat Roofing", desc: "Seamless fibreglass. Ideal for extensions, garages, and bay windows. 25-year guarantee.", life: "25-year guarantee" },
+            { img: "https://images.unsplash.com/photo-1512803274291-a67b5fbe776d?auto=format&fit=crop&q=80&w=800", name: "Welsh Slate", desc: "Natural Welsh slate. 100yr+ lifespan. The premium choice for period and prestige properties.", life: "100yr+ lifespan" }
+          ].map((mat, i) => (
+            <motion.div
+              key={i}
+              whileHover={{ scale: 1.02, boxShadow: "0 8px 40px rgba(42,92,212,0.3)" }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              className="relative overflow-hidden rounded-[8px] cursor-pointer flex-1 group"
+            >
+              <img src={mat.img} alt={mat.name} style={{ width: '100%', aspectRatio: '4/3', objectFit: 'cover', objectPosition: 'center' }} />
+              <div style={{ background: 'linear-gradient(to top, rgba(15,18,25,0.92) 0%, transparent 60%)' }} className="absolute inset-0"></div>
+              <div className="absolute bottom-0 p-[24px] z-10 w-full">
+                <h3 className="font-heading font-bold text-[22px] text-[#f5f5f5]">{mat.name}</h3>
+                <p className="font-sans font-light text-[14px] text-[#8a9ab4] mt-1">{mat.desc}</p>
+                <div className="font-sans font-light text-[13px] text-[#2a5cd4] mt-[8px]">
+                  {mat.life}
+                </div>
+                <button className="bg-[#2a5cd4] text-white font-sans font-normal text-[13px] px-[16px] py-[8px] rounded-[4px] mt-[12px]">
+                  Book a Survey
+                </button>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* 5. Trust Badges Strip */}
+      <div className="w-full bg-[#2a5cd4] py-[24px] px-[clamp(24px,6vw,96px)] flex flex-wrap justify-center items-center gap-x-[48px] gap-y-[16px]">
+        {["NFRC Member", "TrustMark Approved", "Which? Trusted Trader", "15yr Guarantee", "All Work Insured", "500+ Roofs"].map((badge, i) => (
+          <div key={i} className="flex items-center gap-[8px]">
+            <CheckCircle className="w-[16px] h-[16px] text-white" />
             <span className="font-sans font-light text-[14px] text-white tracking-[0.04em]">{badge}</span>
-            {i !== 4 && <div className="hidden md:block w-px h-4 bg-white/30 ml-8 lg:ml-12" />}
+            {i !== 5 && <div className="hidden lg:block w-px h-[16px] border-l border-[rgba(255,255,255,0.3)] ml-[48px]" />}
           </div>
         ))}
       </div>
 
-      {/* Process Section */}
-      <section id="how-it-works" className="bg-[var(--card)] py-24 px-[clamp(24px,6vw,96px)]">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="font-heading font-bold text-[clamp(32px,4vw,56px)] text-white mb-20 text-center">
-            HOW IT WORKS
-          </h2>
+      {/* 6. Quote Process */}
+      <section className="bg-[#0f1219] py-[80px] px-[clamp(24px,6vw,96px)] relative">
+        <h2 className="font-heading font-bold text-[clamp(32px,4vw,56px)] text-[#f5f5f5] mb-[60px] text-center md:text-left">
+          HOW IT WORKS
+        </h2>
 
-          <div className="relative grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
-            <div className="hidden md:block absolute top-[40px] left-[16.6%] right-[16.6%] h-px bg-gradient-to-r from-transparent via-[var(--primary)] to-transparent opacity-50" />
+        <div className="relative flex flex-col md:flex-row gap-0">
+          <div className="hidden md:block absolute top-[40px] left-[16.6%] right-[16.6%] h-[1px]" style={{ background: 'linear-gradient(to right, transparent, #2a5cd4, transparent)' }}></div>
 
-            {[
-              { num: "01", stepLabel: "FIRST STEP", title: "Build Inventory", desc: "Use our interface to log items. The AI automatically categorizes and values them for you." },
-              { num: "02", stepLabel: "SECOND STEP", title: "Upload Policies", desc: "Drop your insurance PDFs into the platform. We read the fine print so you don't have to." },
-              { num: "03", stepLabel: "THIRD STEP", title: "Stay Protected", desc: "Get instant gap analysis. Know exactly what you need to upgrade before a disaster strikes." },
-            ].map((step, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.6, delay: idx * 0.18 }}
-                className="relative flex flex-col items-center text-center z-10"
-              >
-                <div className="font-heading font-extrabold text-[80px] text-[var(--primary)] opacity-10 mb-[-16px] leading-none select-none">
-                  {idx + 1}
-                </div>
-                <div className="w-10 h-10 rounded-full bg-[var(--primary)] flex items-center justify-center font-sans text-[16px] text-white shadow-[0_0_15px_rgba(217,119,6,0.4)]">
-                  {step.num}
-                </div>
-                <div className="font-sans font-light text-[13px] tracking-[0.1em] uppercase text-[var(--primary)] mt-6">
-                  {step.stepLabel}
-                </div>
-                <h3 className="font-heading font-bold text-[20px] text-white mt-2">
-                  {step.title}
-                </h3>
-                <p className="font-sans text-[15px] text-[#8a7f76] leading-[1.6] mt-3 max-w-sm">
-                  {step.desc}
-                </p>
-              </motion.div>
-            ))}
-          </div>
+          {[
+            { num: "1", badge: "01", label: "FIRST STEP", title: "Free Survey", desc: "We visit your property, inspect the roof from ground and access point, and give you an honest assessment." },
+            { num: "2", badge: "02", label: "SECOND STEP", title: "Written Quote (24hrs)", desc: "You'll have a full written quote with materials, timeline, and total cost within 24 hours of the survey." },
+            { num: "3", badge: "03", label: "THIRD STEP", title: "Work Starts Within 2 Weeks", desc: "Our crew arrives on the agreed date. Fully insured, NFRC registered, and tidy throughout." }
+          ].map((step, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: idx * 0.18, ease: "easeOut" }}
+              className="flex-1 flex flex-col items-center text-center p-[24px]"
+            >
+              <div className="font-heading font-extrabold text-[80px] text-[#2a5cd4] opacity-10 mb-[-16px] leading-[1]">
+                {step.num}
+              </div>
+              <div className="w-[40px] h-[40px] bg-[#2a5cd4] rounded-full font-sans font-normal text-[16px] text-white flex items-center justify-center z-10">
+                {step.badge}
+              </div>
+              <div className="font-sans font-light text-[13px] tracking-[0.1em] uppercase text-[#7a9cd4] mt-[16px]">
+                {step.label}
+              </div>
+              <h3 className="font-heading font-bold text-[20px] text-[#f5f5f5] mt-[8px]">
+                {step.title}
+              </h3>
+              <p className="font-sans font-normal text-[15px] text-[#8a9ab4] leading-[1.6] mt-3">
+                {step.desc}
+              </p>
+            </motion.div>
+          ))}
         </div>
       </section>
 
-      {/* Security Section (Replaces Emergency) */}
-      <section id="security" className="bg-[var(--background)] py-24 px-[clamp(24px,6vw,96px)] border-t-[2px] border-[#e53e3e]">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-16 items-center">
-          <div className="flex-1">
-            <div className="inline-block bg-[#e53e3e] font-sans font-light text-[12px] text-white tracking-[0.14em] uppercase px-3 py-1 rounded-sm mb-5">
-              YOUR DATA IS SECURE
-            </div>
-            <h2 className="font-heading font-bold text-[clamp(32px,4.5vw,60px)] text-white leading-tight">
-              BANK-GRADE SECURITY. <br />COMPLETE PRIVACY.
-            </h2>
-            <p className="font-sans text-[17px] text-[#8a7f76] mt-6 leading-[1.7] max-w-[580px]">
-              We understand that your home inventory is sensitive data. We encrypt all your photos and policy documents. Your data is yours, and we never share it with insurance providers without your explicit consent.
-            </p>
-            <div className="font-heading font-extrabold text-[clamp(28px,4vw,50px)] text-white mt-8 opacity-90">
-              100% PRIVATE.
-            </div>
+      {/* 7. Emergency Section */}
+      <section id="emergency" className="bg-[#0f1219] py-[80px] px-[clamp(24px,6vw,96px)] border-t-[2px] border-[#e53e3e]">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
+          <div className="inline-block bg-[#e53e3e] font-sans font-light text-[12px] text-white tracking-[0.14em] uppercase px-[12px] py-[4px] rounded-[2px] mb-[20px]">
+            48HR EMERGENCY RESPONSE
           </div>
-          <div className="flex-1 w-full bg-gradient-to-tr from-[var(--muted)] to-[var(--card)] p-8 rounded-xl border border-white/5 shadow-2xl relative overflow-hidden h-[300px] flex flex-col justify-center">
-            <div className="absolute top-0 right-0 p-32 bg-[var(--primary)]/10 blur-[100px] rounded-full pointer-events-none"></div>
-            <div className="relative z-10 font-mono text-sm text-[var(--primary)] opacity-70 mb-4">{"// Encryption handshake established"}</div>
-            <div className="relative z-10 flex flex-col gap-3">
-              {[1, 2, 3].map(i => (
-                <div key={i} className="h-10 bg-black/40 rounded flex items-center px-4 overflow-hidden relative">
-                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-[var(--primary)] opacity-80" />
-                  <div className="font-mono text-xs text-white/50 tracking-wider">enc_block_v{i}_x{i * 7}ksf... encrypted</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="bg-[var(--primary)] py-24 px-[clamp(24px,6vw,96px)] text-center relative overflow-hidden">
-        <div className="absolute inset-0 bg-black/10"></div>
-        <div className="relative z-10 max-w-4xl mx-auto">
-          <h2 className="font-heading font-extrabold text-[clamp(40px,6vw,96px)] text-white leading-none">
-            START YOUR FREE INVENTORY
+          
+          <h2 className="font-heading font-bold text-[clamp(32px,4.5vw,72px)] text-[#f5f5f5] leading-tight">
+            EMERGENCY ROOFING — <br className="hidden md:block"/>48hr RESPONSE
           </h2>
-          <p className="font-sans text-[17px] text-white/90 mt-6 max-w-2xl mx-auto">
-            No credit card required. Be among the smart 10% of homeowners who are prepared for the unexpected.
+          
+          <p className="font-sans font-normal text-[17px] text-[#8a9ab4] mt-[16px] max-w-[580px] leading-[1.7]">
+            Storm damage? Leak? Active water ingress? We know it can't wait. Call us now and we'll have a roofer with you within 48 hours — usually sooner.
           </p>
-          <motion.div whileHover={{ scale: 1.04 }} transition={{ duration: 0.2 }} className="inline-block mt-10">
-            <Link href="/register" className="bg-white text-[var(--primary)] font-heading font-bold text-[16px] px-10 py-5 rounded hover:bg-[var(--background)] hover:text-white transition-colors duration-300">
-              Book Free Survey
-            </Link>
-          </motion.div>
-          <div className="font-sans font-light text-[13px] text-white/70 mt-6 tracking-wide">
-            Free forever for up to 50 items · Full AI Support
+
+          <div className="font-heading font-extrabold text-[clamp(36px,5vw,80px)] text-[#f5f5f5] mt-[32px] leading-none">
+            0800 123 4567
           </div>
+          <div className="font-sans font-light text-[14px] text-[#7a9cd4] mt-2">
+            Free to call · 8am–8pm Mon–Sat
+          </div>
+
+          <motion.button 
+            whileHover={{ scale: 1.04 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="bg-[#2a5cd4] text-white font-sans font-normal text-[15px] px-[32px] py-[16px] rounded-[4px] mt-[24px]"
+          >
+            Get Emergency Help
+          </motion.button>
+
+          <img 
+            src="https://images.unsplash.com/photo-1589139500057-a4bc9f1c7d24?auto=format&fit=crop&q=80&w=1600" 
+            alt="Storm damage to residential roof requiring emergency repair" 
+            style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover', objectPosition: 'center', marginTop: '48px', borderRadius: '8px' }} 
+          />
+        </motion.div>
+      </section>
+
+      {/* 8. Testimonial */}
+      <section className="bg-[#111827] py-[80px] px-[clamp(24px,6vw,96px)] text-center md:text-left flex flex-col items-center md:items-start">
+        <div className="text-[#2a5cd4] text-[20px] mb-[24px] tracking-[4px]">
+          ★★★★★
+        </div>
+        <blockquote className="font-heading font-bold text-[clamp(24px,3.5vw,48px)] text-[#f5f5f5] italic leading-[1.3] max-w-4xl">
+          "Summit re-roofed our Victorian terrace and the finish is exceptional. Tidy, professional, and on time."
+        </blockquote>
+        <div className="font-sans font-light text-[15px] text-[#7a9cd4] mt-[20px]">
+          — David K., Wimbledon
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-[#080c12] border-t border-white/10 py-12 px-[clamp(24px,6vw,96px)] pb-8">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex flex-col">
-            <div className="font-heading font-bold text-[17px] text-white tracking-wide">GHARSURAKSHA</div>
-            <div className="font-sans font-light text-[14px] text-[#6a7a94] mt-1">Smart Home Inventory</div>
+      {/* 9. Blue CTA */}
+      <section id="quote" className="bg-[#2a5cd4] py-[80px] px-[clamp(24px,6vw,96px)] text-center">
+        <h2 className="font-heading font-extrabold text-[clamp(40px,6vw,96px)] text-white leading-none">
+          GET YOUR FREE SURVEY
+        </h2>
+        <p className="font-sans font-normal text-[17px] text-[rgba(255,255,255,0.85)] mt-[16px] max-w-2xl mx-auto">
+          No obligation. Written quote within 24 hours. Work guaranteed for 15 years.
+        </p>
+        <button className="bg-white text-[#2a5cd4] font-heading font-bold text-[16px] px-[40px] py-[20px] rounded-[4px] mt-[40px] hover:bg-[#0f1219] hover:text-white transition-colors duration-200">
+          Book Free Survey
+        </button>
+        <div className="font-sans font-light text-[13px] text-[rgba(255,255,255,0.7)] mt-[16px]">
+          London and South East · 500+ roofs completed · NFRC registered
+        </div>
+      </section>
+
+      {/* 10. Footer */}
+      <footer className="bg-[#080c12] border-t border-[rgba(42,92,212,0.2)] py-[48px] px-[clamp(24px,6vw,96px)] pb-[32px]">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-[40px]">
+          <div>
+            <div className="font-heading font-bold text-[17px] text-[#f5f5f5]">Summit Roofing</div>
+            <div className="font-sans font-light text-[14px] text-[#4a5568] mt-2">Premium Roofing Contractors</div>
           </div>
-          <div className="flex gap-6 font-sans font-light text-[14px] text-[#6a7a94]">
-            <Link href="#modules" className="hover:text-white transition-colors">Modules</Link>
-            <Link href="#how-it-works" className="hover:text-white transition-colors">Process</Link>
-            <Link href="#security" className="hover:text-white transition-colors">Security</Link>
+          <div>
+            <h4 className="font-sans font-semibold text-[15px] text-[#f5f5f5] mb-4">Services</h4>
+            <div className="flex flex-col gap-2 font-sans font-light text-[14px] text-[#6a7a94]">
+              <span>New Roofs</span>
+              <span>Re-Roofing</span>
+              <span>Repairs</span>
+              <span>Guttering</span>
+              <span>Emergency</span>
+            </div>
           </div>
-          <div className="font-sans font-light text-[12px] text-[#4a5568]">
-            © {new Date().getFullYear()} GharSuraksha. All rights reserved.
+          <div>
+            <h4 className="font-sans font-semibold text-[15px] text-[#f5f5f5] mb-4">Coverage</h4>
+            <div className="flex flex-col gap-2 font-sans font-light text-[14px] text-[#6a7a94]">
+              <span>London</span>
+              <span>Surrey</span>
+              <span>Kent</span>
+              <span>Sussex</span>
+              <span>Essex</span>
+              <span>Hertfordshire</span>
+            </div>
           </div>
+          <div>
+            <h4 className="font-sans font-semibold text-[15px] text-[#f5f5f5] mb-4">Contact</h4>
+            <div className="flex flex-col gap-2 font-sans font-light text-[14px] text-[#6a7a94]">
+              <span>0800 123 4567</span>
+              <span>hello@summitroofing.co.uk</span>
+              <span>123 Roofing House<br/>London, SW1 1AA</span>
+            </div>
+          </div>
+        </div>
+        <div className="border-t border-[rgba(255,255,255,0.1)] mt-[48px] pt-[32px] font-sans font-light text-[12px] text-[#4a5568] text-center md:text-left">
+          © 2025 Summit Roofing. All rights reserved.
         </div>
       </footer>
     </div>
