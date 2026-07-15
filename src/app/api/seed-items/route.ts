@@ -12,35 +12,27 @@ export async function POST(request: Request) {
     const userId = session.user.id;
 
     // Get a category or create a default one
-    let category = await prisma.category.findFirst({
-      where: { name: "Electronics" }
+    const category = await prisma.category.upsert({
+      where: { name: "Electronics" },
+      update: {},
+      create: {
+        name: "Electronics",
+        icon: "💻",
+        description: "Electronic devices",
+        isPreseeded: true
+      }
     });
 
-    if (!category) {
-      category = await prisma.category.create({
-        data: {
-          name: "Electronics",
-          icon: "💻",
-          description: "Electronic devices",
-          isPreseeded: true
-        }
-      });
-    }
-
-    let furnitureCategory = await prisma.category.findFirst({
-      where: { name: "Furniture" }
+    const furnitureCategory = await prisma.category.upsert({
+      where: { name: "Furniture" },
+      update: {},
+      create: {
+        name: "Furniture",
+        icon: "🛋️",
+        description: "Home furniture",
+        isPreseeded: true
+      }
     });
-
-    if (!furnitureCategory) {
-      furnitureCategory = await prisma.category.create({
-        data: {
-          name: "Furniture",
-          icon: "🛋️",
-          description: "Home furniture",
-          isPreseeded: true
-        }
-      });
-    }
 
     // Create Sample Items
     await prisma.item.create({

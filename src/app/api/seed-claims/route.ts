@@ -18,14 +18,11 @@ export async function POST(request: Request) {
 
     if (!item) {
       // Create a dummy item if none exists
-      let category = await prisma.category.findFirst({
-        where: { name: "Electronics" }
+      const category = await prisma.category.upsert({
+        where: { name: "Electronics" },
+        update: {},
+        create: { name: "Electronics", icon: "💻", isPreseeded: true }
       });
-      if (!category) {
-        category = await prisma.category.create({
-          data: { name: "Electronics", icon: "💻", isPreseeded: true }
-        });
-      }
       
       item = await prisma.item.create({
         data: {
