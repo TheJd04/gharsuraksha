@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { formatCurrency, formatDate } from "@/lib/utils";
 import type { Policy, PolicyCoverage } from "@prisma/client";
+import { TooltipEducation } from "@/components/ui/tooltip-education";
 
 type PolicyWithCoverages = Policy & { coverages: PolicyCoverage[] };
 
@@ -90,7 +91,11 @@ export default function PoliciesPage() {
             🛡️
           </div>
           <div>
-            <div className="text-sm text-[var(--muted-foreground)]">Total Coverage</div>
+            <div className="text-sm text-[var(--muted-foreground)]">
+              <TooltipEducation term="Total Coverage" definition="The maximum amount your insurance company will pay out across all your active policies.">
+                Total Coverage
+              </TooltipEducation>
+            </div>
             <div className="text-xl font-bold">{formatCurrency(totalCoverage)}</div>
           </div>
         </div>
@@ -99,7 +104,11 @@ export default function PoliciesPage() {
             💰
           </div>
           <div>
-            <div className="text-sm text-[var(--muted-foreground)]">Annual Premium</div>
+            <div className="text-sm text-[var(--muted-foreground)]">
+              <TooltipEducation term="Annual Premium" definition="The amount you pay per year to keep your insurance policies active.">
+                Annual Premium
+              </TooltipEducation>
+            </div>
             <div className="text-xl font-bold">{formatCurrency(totalPremium)}</div>
           </div>
         </div>
@@ -152,12 +161,18 @@ export default function PoliciesPage() {
                   </div>
                   
                   <div className="text-left md:text-right">
-                    <div className="text-sm text-[var(--muted-foreground)] mb-1">Sum Insured</div>
+                    <div className="text-sm text-[var(--muted-foreground)] mb-1">
+                      <TooltipEducation term="Sum Insured" definition="The maximum limit the insurance company will pay out for a single covered claim.">
+                        Sum Insured
+                      </TooltipEducation>
+                    </div>
                     <div className="text-2xl font-bold text-[var(--success)] mb-1">
                       {formatCurrency(policy.sumInsured)}
                     </div>
                     <div className="text-sm">
-                      Premium: <span className="font-medium">{formatCurrency(policy.premium)}/yr</span>
+                      <TooltipEducation term="Premium" definition="The regular payment you make to the insurance company to keep this policy active.">
+                        Premium
+                      </TooltipEducation>: <span className="font-medium">{formatCurrency(policy.premium)}/yr</span>
                     </div>
                   </div>
                 </div>

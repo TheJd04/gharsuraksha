@@ -4,6 +4,7 @@ import { useState } from "react";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { MockCaptcha } from "@/components/ui/mock-captcha";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -12,9 +13,14 @@ export default function RegisterPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isVerified, setIsVerified] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (!isVerified) {
+      setError("Please complete the security verification.");
+      return;
+    }
     setError("");
     setLoading(true);
 
@@ -111,15 +117,20 @@ export default function RegisterPage() {
               className="input-field"
               placeholder="Min 6 characters"
               required
-              minLength={6}
+              minLength={8}
               autoComplete="new-password"
             />
+            <p className="text-xs text-[var(--muted-foreground)] mt-1">Must contain 8+ chars, 1 uppercase, 1 number, 1 special character.</p>
+          </div>
+
+          <div className="pt-2">
+            <MockCaptcha onVerify={setIsVerified} />
           </div>
 
           <button
             type="submit"
-            disabled={loading}
-            className="btn-primary w-full py-3"
+            disabled={loading || !isVerified}
+            className="btn-primary w-full py-3 mt-4"
           >
             {loading ? "Creating account..." : "Create Account"}
           </button>

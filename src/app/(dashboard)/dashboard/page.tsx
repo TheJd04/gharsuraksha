@@ -3,6 +3,8 @@ import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { formatCurrency } from "@/lib/utils";
+import { ReadinessScore } from "@/components/dashboard/readiness-score";
+import { TooltipEducation } from "@/components/ui/tooltip-education";
 
 export default async function DashboardPage() {
   const session = await auth();
@@ -20,6 +22,7 @@ export default async function DashboardPage() {
   const totalValue = items.reduce((sum, item) => sum + item.estimatedValue, 0);
   const coveredItems = items.filter((i) => i.coverageStatus === "covered");
   const uncoveredItems = items.filter((i) => i.coverageStatus === "uncovered");
+  const unknownItems = items.filter((i) => i.coverageStatus === "unknown");
   const coveredValue = coveredItems.reduce((sum, i) => sum + i.estimatedValue, 0);
   const uncoveredValue = uncoveredItems.reduce((sum, i) => sum + i.estimatedValue, 0);
   const coveragePercent = totalValue > 0 ? Math.round((coveredValue / totalValue) * 100) : 0;
@@ -68,7 +71,11 @@ export default async function DashboardPage() {
         <div className="stat-card">
           <div className="text-2xl mb-2">📋</div>
           <div className="text-2xl font-bold">{activePolicies.length}</div>
-          <div className="text-sm text-[var(--muted-foreground)]">Active Policies</div>
+          <div className="text-sm text-[var(--muted-foreground)]">
+            <TooltipEducation term="Active Policies" definition="An active policy is an insurance contract that is currently in force and providing coverage.">
+              Active Policies
+            </TooltipEducation>
+          </div>
         </div>
         <div className="stat-card">
           <div className="text-2xl mb-2">📄</div>
@@ -77,9 +84,10 @@ export default async function DashboardPage() {
         </div>
       </div>
 
-      {/* Coverage Overview */}
-      <div className="grid lg:grid-cols-2 gap-6 mb-8">
-        <div className="glass-card p-6">
+      {/* Overview & Score */}
+      <div className="grid lg:grid-cols-3 gap-6 mb-8">
+        {/* Coverage Overview */}
+        <div className="glass-card p-6 lg:col-span-2">
           <h2 className="text-lg font-semibold mb-4">Coverage Overview</h2>
 
           {items.length === 0 ? (
@@ -113,7 +121,7 @@ export default async function DashboardPage() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-3 gap-3 text-center">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-center">
                 <div className="p-3 rounded-lg bg-[var(--success)]/10 border border-[var(--success)]/20">
                   <div className="text-lg font-bold text-[var(--success)]">{coveredItems.length}</div>
                   <div className="text-xs text-[var(--muted-foreground)]">Covered</div>
@@ -121,6 +129,10 @@ export default async function DashboardPage() {
                 <div className="p-3 rounded-lg bg-[var(--destructive)]/10 border border-[var(--destructive)]/20">
                   <div className="text-lg font-bold text-[var(--destructive)]">{uncoveredItems.length}</div>
                   <div className="text-xs text-[var(--muted-foreground)]">Uncovered</div>
+                </div>
+                <div className="p-3 rounded-lg bg-[var(--primary)]/10 border border-[var(--primary)]/20">
+                  <div className="text-lg font-bold text-[var(--primary)]">{unknownItems.length}</div>
+                  <div className="text-xs text-[var(--muted-foreground)]">Needs Analysis</div>
                 </div>
                 <div className="p-3 rounded-lg bg-[var(--warning)]/10 border border-[var(--warning)]/20">
                   <div className="text-lg font-bold text-[var(--warning)]">{formatCurrency(uncoveredValue)}</div>
@@ -131,7 +143,14 @@ export default async function DashboardPage() {
           )}
         </div>
 
-        {/* Top Categories */}
+        {/* Readiness Score */}
+        <div className="lg:col-span-1">
+          <ReadinessScore score={coveragePercent} />
+        </div>
+      </div>
+
+      {/* Top Categories */}
+      <div className="grid lg:grid-cols-1 gap-6 mb-8">
         <div className="glass-card p-6">
           <h2 className="text-lg font-semibold mb-4">Top Categories by Value</h2>
 

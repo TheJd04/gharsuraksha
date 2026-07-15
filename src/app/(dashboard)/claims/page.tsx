@@ -7,6 +7,7 @@ import { formatCurrency, formatDate } from "@/lib/utils";
 export default function ClaimsPage() {
   const [claims, setClaims] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isSeeding, setIsSeeding] = useState(false);
 
   useEffect(() => {
     fetchClaims();
@@ -26,6 +27,18 @@ export default function ClaimsPage() {
     }
   }
 
+  async function handleSeedClaims() {
+    setIsSeeding(true);
+    try {
+      await fetch("/api/seed-claims", { method: "POST" });
+      await fetchClaims();
+    } catch (error) {
+      console.error("Failed to seed claims:", error);
+    } finally {
+      setIsSeeding(false);
+    }
+  }
+
   return (
     <div className="max-w-6xl mx-auto fade-in">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
@@ -35,9 +48,18 @@ export default function ClaimsPage() {
             Manage your claims and generate structured reports for your insurer.
           </p>
         </div>
-        <Link href="/claims/new" className="btn-primary flex items-center gap-2">
-          <span>➕</span> New Claim Report
-        </Link>
+        <div className="flex gap-3">
+          <button 
+            onClick={handleSeedClaims} 
+            disabled={isSeeding}
+            className="btn-secondary flex items-center gap-2"
+          >
+            {isSeeding ? "Generating..." : "🧪 Test Run"}
+          </button>
+          <Link href="/claims/new" className="btn-primary flex items-center gap-2">
+            <span>➕</span> New Claim Report
+          </Link>
+        </div>
       </div>
 
       {loading ? (

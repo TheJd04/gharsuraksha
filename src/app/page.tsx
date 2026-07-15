@@ -1,188 +1,272 @@
+"use client";
+
 import Link from "next/link";
+import { motion } from "framer-motion";
+import { CheckCircle } from "lucide-react";
+import CountUp from "react-countup";
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-[var(--background)]">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 border-b border-[var(--border)] bg-[var(--background)]/80 backdrop-blur-xl">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <div className="min-h-screen bg-[var(--background)] font-sans text-[var(--foreground)] selection:bg-[var(--primary)] selection:text-white">
+      {/* Navbar */}
+      <motion.nav
+        initial={{ y: -68 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className="fixed top-0 w-full z-50 border-b border-[var(--primary)]/20 bg-[var(--background)]/90 backdrop-blur-md h-[68px]"
+      >
+        <div className="max-w-7xl mx-auto px-6 h-full flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="text-2xl">🛡️</span>
-            <span className="text-xl font-bold gradient-text">GharSuraksha</span>
+            <span className="font-heading font-bold text-[17px] tracking-wide text-white">GHARSURAKSHA</span>
+          </div>
+          <div className="hidden md:flex items-center gap-6 font-sans text-sm text-[var(--secondary-foreground)]">
+            <Link href="#modules" className="hover:text-white transition-colors">Modules</Link>
+            <Link href="#how-it-works" className="hover:text-white transition-colors">Process</Link>
+            <Link href="#security" className="hover:text-white transition-colors">Security</Link>
           </div>
           <div className="flex items-center gap-4">
-            <Link href="/login" className="btn-secondary text-sm">Log In</Link>
-            <Link href="/register" className="btn-primary text-sm">Get Started</Link>
+            <Link href="/login" className="text-sm font-sans text-[var(--secondary-foreground)] hover:text-white transition-colors">Sign In</Link>
+            <Link href="/register" className="bg-[var(--primary)] text-white font-sans text-sm px-6 py-2.5 rounded hover:scale-105 transition-transform duration-150">
+              Get Started
+            </Link>
           </div>
         </div>
-      </nav>
+      </motion.nav>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-6">
-        <div className="max-w-5xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[var(--border)] bg-[var(--secondary)] text-sm text-[var(--muted-foreground)] mb-8 fade-in">
-            <span className="w-2 h-2 rounded-full bg-[var(--success)] animate-pulse"></span>
-            AI-Powered Insurance Intelligence for India
-          </div>
+      <section className="relative min-h-screen w-full overflow-hidden bg-[var(--background)] flex items-center">
+        {/* Background Text */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 pointer-events-none w-full text-center overflow-hidden">
+          <span className="font-heading font-extrabold text-[clamp(80px,20vw,360px)] leading-none text-white opacity-[0.02] whitespace-nowrap tracking-tighter block">
+            GHARSURAKSHA
+          </span>
+        </div>
 
-          <h1 className="text-5xl md:text-7xl font-extrabold leading-tight mb-6 fade-in">
-            Know What You <span className="gradient-text">Own</span>.
-            <br />
-            Know What&apos;s <span className="gradient-text">Covered</span>.
-          </h1>
+        {/* Content Panel */}
+        <div className="relative z-10 flex flex-col justify-center pl-[clamp(24px,6vw,96px)] w-full md:w-[70%]">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
+          >
+            <div className="font-sans font-light text-[13px] tracking-[0.14em] uppercase text-[var(--primary)] mb-6">
+              AI-POWERED INSURANCE INTELLIGENCE
+            </div>
+            <h1 className="font-heading font-extrabold text-[clamp(45px,7vw,120px)] leading-[1.05] text-white tracking-tight">
+              KNOW YOUR ASSETS.<br />
+              <span className="text-[var(--primary)]">PROTECT YOUR HOME.</span>
+            </h1>
+          </motion.div>
 
-          <p className="text-lg md:text-xl text-[var(--muted-foreground)] max-w-2xl mx-auto mb-10 fade-in">
-            Snap photos of your belongings. AI catalogs and values them.
-            Upload your insurance policies. We find the gaps, traps, and loopholes —
-            so you&apos;re never caught off guard.
-          </p>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
+            className="font-sans font-normal text-[18px] text-[var(--secondary-foreground)] mt-6 max-w-[500px] leading-[1.6]"
+          >
+            Award-winning home inventory platform for India. Over 400+ items recognized. Stop guessing your coverage gaps and stay prepared.
+          </motion.p>
 
-          <div className="flex items-center justify-center gap-4 mb-16 fade-in">
-            <Link href="/register" className="btn-primary text-base px-8 py-3">
-              Start Free Inventory →
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5, ease: "easeOut" }}
+            className="flex flex-col sm:flex-row gap-4 mt-10"
+          >
+            <Link href="/register" className="bg-[var(--primary)] text-white font-sans text-[15px] px-7 py-3.5 rounded hover:scale-[1.03] transition-transform duration-150 inline-flex justify-center items-center font-medium">
+              Start Free Inventory
             </Link>
-            <Link href="/login" className="btn-secondary text-base px-8 py-3">
-              Sign In
+            <Link href="#modules" className="bg-transparent border border-white/30 text-white font-sans text-[15px] px-7 py-3.5 rounded hover:bg-white/5 transition-colors duration-150 inline-flex justify-center items-center gap-2 group">
+              <span className="w-1.5 h-1.5 bg-[var(--primary)] rounded-full group-hover:animate-ping"></span>
+              See How It Works →
             </Link>
-          </div>
+          </motion.div>
 
-          {/* Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
+          {/* Count-Up Stats Row */}
+          <div className="flex flex-wrap gap-x-12 gap-y-8 mt-16 lg:mt-20">
             {[
-              { value: "400+", label: "Pre-loaded Items", icon: "📦" },
-              { value: "15", label: "Item Categories", icon: "📁" },
-              { value: "AI", label: "Vision Cataloging", icon: "🤖" },
-              { value: "₹0", label: "To Get Started", icon: "💰" },
-            ].map((stat) => (
-              <div key={stat.label} className="stat-card text-center">
-                <div className="text-2xl mb-1">{stat.icon}</div>
-                <div className="text-2xl font-bold gradient-text">{stat.value}</div>
-                <div className="text-xs text-[var(--muted-foreground)]">{stat.label}</div>
+              { value: 400, suffix: "+", label: "Pre-loaded Items" },
+              { value: 15, suffix: "", label: "Categories" },
+              { value: 100, suffix: "%", label: "AI Powered" },
+              { value: 0, prefix: "₹", label: "To Get Started" }
+            ].map((stat, i) => (
+              <div key={i} className="flex flex-col">
+                <div className="font-heading font-bold text-[48px] lg:text-[56px] text-[var(--primary)] leading-none">
+                  {stat.prefix}<CountUp end={stat.value} duration={2} enableScrollSpy scrollSpyOnce />{stat.suffix}
+                </div>
+                <div className="font-sans font-light text-[13px] text-[var(--secondary-foreground)] tracking-[0.06em] uppercase mt-2">
+                  {stat.label}
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Features Grid */}
-      <section className="py-20 px-6 border-t border-[var(--border)]">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
-            Everything You Need to <span className="gradient-text">Protect Your Home</span>
+      {/* Services / Features Row */}
+      <section id="modules" className="bg-[var(--background)] py-24 px-[clamp(24px,6vw,96px)] border-t border-white/5">
+        <div className="max-w-7xl mx-auto">
+          <div className="font-sans font-light text-[12px] tracking-[0.14em] uppercase text-[var(--primary)] mb-8">
+            CORE MODULES
+          </div>
+          <h2 className="font-heading font-bold text-[clamp(32px,4vw,60px)] text-white mb-12 leading-tight">
+            Everything You Need to <br />Protect Your Home.
           </h2>
-          <p className="text-center text-[var(--muted-foreground)] mb-12 max-w-2xl mx-auto">
-            Five powerful modules working together to give you complete visibility into your assets and insurance coverage.
-          </p>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="flex flex-col border-t border-white/10">
             {[
-              {
-                icon: "📸",
-                title: "AI Photo Cataloging",
-                desc: "Snap a photo of any item. Gemini Vision AI identifies it, estimates value, and adds it to your inventory automatically.",
-                color: "from-indigo-500/20 to-purple-500/20",
-              },
-              {
-                icon: "📋",
-                title: "Policy Intelligence",
-                desc: "Upload your insurance policies. AI parses coverage details, limits, deductibles, and exclusions into a clear dashboard.",
-                color: "from-blue-500/20 to-cyan-500/20",
-              },
-              {
-                icon: "🔍",
-                title: "Coverage Gap Analyzer",
-                desc: "Cross-references your inventory against your policies. See exactly what's covered, what's not, and what's under-insured.",
-                color: "from-emerald-500/20 to-green-500/20",
-              },
-              {
-                icon: "📄",
-                title: "Claims Generator",
-                desc: "After a loss event, select affected items and generate a professional, structured claim report instantly.",
-                color: "from-amber-500/20 to-orange-500/20",
-              },
-              {
-                icon: "🤖",
-                title: "AI Insurance Advisor",
-                desc: "Chat with our AI advisor that knows your inventory and policies. Find loopholes, traps, and get coverage recommendations.",
-                color: "from-rose-500/20 to-pink-500/20",
-              },
-              {
-                icon: "🇮🇳",
-                title: "Made for India",
-                desc: "Pre-loaded with 400+ common Indian household items — from pressure cookers to almirahs to mangalsutras, all with Hindi names.",
-                color: "from-violet-500/20 to-fuchsia-500/20",
-              },
-            ].map((feature) => (
-              <div
-                key={feature.title}
-                className="glass-card p-6 group cursor-default"
+              { name: "AI Photo Cataloging", desc: "Snap a photo of any item. Gemini Vision AI identifies it, estimates value, and adds it to your inventory automatically.", meta: "Instant" },
+              { name: "Policy Intelligence", desc: "Upload your insurance policies. AI parses coverage details, limits, deductibles, and exclusions into a clear dashboard.", meta: "Automated" },
+              { name: "Coverage Gap Analyzer", desc: "Cross-references your inventory against your policies. See exactly what's covered, what's not, and what's under-insured.", meta: "Intelligent" },
+              { name: "Claims Generator", desc: "After a loss event, select affected items and generate a professional, structured claim report instantly.", meta: "Stress-Free" },
+            ].map((service, idx) => (
+              <motion.div
+                key={idx}
+                whileHover={{ y: -4 }}
+                transition={{ duration: 0.2 }}
+                className="group flex flex-col md:flex-row md:items-center justify-between py-8 border-b border-white/10 cursor-pointer hover:border-l-[3px] hover:border-l-[var(--primary)] hover:pl-5 hover:shadow-[0_4px_20px_rgba(217,119,6,0.15)] transition-all duration-200 ease-out bg-[var(--background)]"
               >
-                <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${feature.color} flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform`}>
-                  {feature.icon}
+                <div className="md:w-2/3">
+                  <h3 className="font-heading font-bold text-[22px] text-white group-hover:text-[var(--primary)] transition-colors">
+                    {service.name}
+                  </h3>
+                  <p className="font-sans text-[15px] text-[#8a7f76] mt-2">
+                    {service.desc}
+                  </p>
                 </div>
-                <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
-                <p className="text-sm text-[var(--muted-foreground)] leading-relaxed">
-                  {feature.desc}
-                </p>
-              </div>
+                <div className="flex items-center gap-4 mt-4 md:mt-0">
+                  <span className="font-sans font-light text-[14px] text-[var(--secondary-foreground)]">{service.meta}</span>
+                  <span className="text-[24px] text-[var(--primary)] group-hover:translate-x-2 transition-transform">→</span>
+                </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* How It Works */}
-      <section className="py-20 px-6 border-t border-[var(--border)]">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-            How It <span className="gradient-text">Works</span>
+      {/* Trust Badges Strip */}
+      <div className="w-full bg-[var(--primary)] py-6 px-[clamp(24px,6vw,96px)] flex flex-wrap justify-center items-center gap-x-8 lg:gap-x-12 gap-y-4">
+        {["Bank-Grade Encryption", "Gemini AI Powered", "India specific catalog", "100% Privacy", "Export Anywhere"].map((badge, i) => (
+          <div key={i} className="flex items-center gap-2">
+            <CheckCircle className="w-4 h-4 text-white" />
+            <span className="font-sans font-light text-[14px] text-white tracking-[0.04em]">{badge}</span>
+            {i !== 4 && <div className="hidden md:block w-px h-4 bg-white/30 ml-8 lg:ml-12" />}
+          </div>
+        ))}
+      </div>
+
+      {/* Process Section */}
+      <section id="how-it-works" className="bg-[var(--card)] py-24 px-[clamp(24px,6vw,96px)]">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="font-heading font-bold text-[clamp(32px,4vw,56px)] text-white mb-20 text-center">
+            HOW IT WORKS
           </h2>
 
-          <div className="space-y-8">
+          <div className="relative grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
+            <div className="hidden md:block absolute top-[40px] left-[16.6%] right-[16.6%] h-px bg-gradient-to-r from-transparent via-[var(--primary)] to-transparent opacity-50" />
+
             {[
-              { step: "1", title: "Build Your Inventory", desc: "Add items from our 400+ item catalog or snap photos. AI identifies and values everything." },
-              { step: "2", title: "Add Your Policies", desc: "Upload insurance policy documents or enter details manually. AI extracts all coverage information." },
-              { step: "3", title: "See Your Gaps", desc: "Our gap analyzer cross-references inventory vs policies and shows exactly what's at risk." },
-              { step: "4", title: "Stay Protected", desc: "Generate claims reports, chat with AI advisor, and get recommendations to close coverage gaps." },
-            ].map((item) => (
-              <div key={item.step} className="flex items-start gap-6">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[var(--primary)] to-[var(--accent)] flex items-center justify-center text-white font-bold text-sm shrink-0">
-                  {item.step}
+              { num: "01", stepLabel: "FIRST STEP", title: "Build Inventory", desc: "Use our interface to log items. The AI automatically categorizes and values them for you." },
+              { num: "02", stepLabel: "SECOND STEP", title: "Upload Policies", desc: "Drop your insurance PDFs into the platform. We read the fine print so you don't have to." },
+              { num: "03", stepLabel: "THIRD STEP", title: "Stay Protected", desc: "Get instant gap analysis. Know exactly what you need to upgrade before a disaster strikes." },
+            ].map((step, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.6, delay: idx * 0.18 }}
+                className="relative flex flex-col items-center text-center z-10"
+              >
+                <div className="font-heading font-extrabold text-[80px] text-[var(--primary)] opacity-10 mb-[-16px] leading-none select-none">
+                  {idx + 1}
                 </div>
-                <div>
-                  <h3 className="text-lg font-semibold mb-1">{item.title}</h3>
-                  <p className="text-[var(--muted-foreground)]">{item.desc}</p>
+                <div className="w-10 h-10 rounded-full bg-[var(--primary)] flex items-center justify-center font-sans text-[16px] text-white shadow-[0_0_15px_rgba(217,119,6,0.4)]">
+                  {step.num}
                 </div>
-              </div>
+                <div className="font-sans font-light text-[13px] tracking-[0.1em] uppercase text-[var(--primary)] mt-6">
+                  {step.stepLabel}
+                </div>
+                <h3 className="font-heading font-bold text-[20px] text-white mt-2">
+                  {step.title}
+                </h3>
+                <p className="font-sans text-[15px] text-[#8a7f76] leading-[1.6] mt-3 max-w-sm">
+                  {step.desc}
+                </p>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-20 px-6 border-t border-[var(--border)]">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Don&apos;t Wait for a <span className="gradient-text">Loss to Realize</span> What You Had
+      {/* Security Section (Replaces Emergency) */}
+      <section id="security" className="bg-[var(--background)] py-24 px-[clamp(24px,6vw,96px)] border-t-[2px] border-[#e53e3e]">
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-16 items-center">
+          <div className="flex-1">
+            <div className="inline-block bg-[#e53e3e] font-sans font-light text-[12px] text-white tracking-[0.14em] uppercase px-3 py-1 rounded-sm mb-5">
+              YOUR DATA IS SECURE
+            </div>
+            <h2 className="font-heading font-bold text-[clamp(32px,4.5vw,60px)] text-white leading-tight">
+              BANK-GRADE SECURITY. <br />COMPLETE PRIVACY.
+            </h2>
+            <p className="font-sans text-[17px] text-[#8a7f76] mt-6 leading-[1.7] max-w-[580px]">
+              We understand that your home inventory is sensitive data. We encrypt all your photos and policy documents. Your data is yours, and we never share it with insurance providers without your explicit consent.
+            </p>
+            <div className="font-heading font-extrabold text-[clamp(28px,4vw,50px)] text-white mt-8 opacity-90">
+              100% PRIVATE.
+            </div>
+          </div>
+          <div className="flex-1 w-full bg-gradient-to-tr from-[var(--muted)] to-[var(--card)] p-8 rounded-xl border border-white/5 shadow-2xl relative overflow-hidden h-[300px] flex flex-col justify-center">
+            <div className="absolute top-0 right-0 p-32 bg-[var(--primary)]/10 blur-[100px] rounded-full pointer-events-none"></div>
+            <div className="relative z-10 font-mono text-sm text-[var(--primary)] opacity-70 mb-4">{"// Encryption handshake established"}</div>
+            <div className="relative z-10 flex flex-col gap-3">
+              {[1, 2, 3].map(i => (
+                <div key={i} className="h-10 bg-black/40 rounded flex items-center px-4 overflow-hidden relative">
+                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-[var(--primary)] opacity-80" />
+                  <div className="font-mono text-xs text-white/50 tracking-wider">enc_block_v{i}_x{i * 7}ksf... encrypted</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="bg-[var(--primary)] py-24 px-[clamp(24px,6vw,96px)] text-center relative overflow-hidden">
+        <div className="absolute inset-0 bg-black/10"></div>
+        <div className="relative z-10 max-w-4xl mx-auto">
+          <h2 className="font-heading font-extrabold text-[clamp(40px,6vw,96px)] text-white leading-none">
+            START YOUR FREE INVENTORY
           </h2>
-          <p className="text-[var(--muted-foreground)] mb-8">
-            90% of Indian households have no inventory. Be among the 10% who are prepared.
+          <p className="font-sans text-[17px] text-white/90 mt-6 max-w-2xl mx-auto">
+            No credit card required. Be among the smart 10% of homeowners who are prepared for the unexpected.
           </p>
-          <Link href="/register" className="btn-primary text-base px-10 py-3">
-            Create Your Free Inventory →
-          </Link>
+          <motion.div whileHover={{ scale: 1.04 }} transition={{ duration: 0.2 }} className="inline-block mt-10">
+            <Link href="/register" className="bg-white text-[var(--primary)] font-heading font-bold text-[16px] px-10 py-5 rounded hover:bg-[var(--background)] hover:text-white transition-colors duration-300">
+              Book Free Survey
+            </Link>
+          </motion.div>
+          <div className="font-sans font-light text-[13px] text-white/70 mt-6 tracking-wide">
+            Free forever for up to 50 items · Full AI Support
+          </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-[var(--border)] py-8 px-6">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <span className="text-lg">🛡️</span>
-            <span className="font-semibold gradient-text">GharSuraksha</span>
+      <footer className="bg-[#080c12] border-t border-white/10 py-12 px-[clamp(24px,6vw,96px)] pb-8">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex flex-col">
+            <div className="font-heading font-bold text-[17px] text-white tracking-wide">GHARSURAKSHA</div>
+            <div className="font-sans font-light text-[14px] text-[#6a7a94] mt-1">Smart Home Inventory</div>
           </div>
-          <p className="text-sm text-[var(--muted-foreground)]">
-            Built with Next.js 16, Tailwind CSS, PostgreSQL & Gemini AI
-          </p>
+          <div className="flex gap-6 font-sans font-light text-[14px] text-[#6a7a94]">
+            <Link href="#modules" className="hover:text-white transition-colors">Modules</Link>
+            <Link href="#how-it-works" className="hover:text-white transition-colors">Process</Link>
+            <Link href="#security" className="hover:text-white transition-colors">Security</Link>
+          </div>
+          <div className="font-sans font-light text-[12px] text-[#4a5568]">
+            © {new Date().getFullYear()} GharSuraksha. All rights reserved.
+          </div>
         </div>
       </footer>
     </div>

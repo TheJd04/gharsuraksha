@@ -13,6 +13,7 @@ export default function InventoryPage() {
   const [search, setSearch] = useState("");
   const [filterCategory, setFilterCategory] = useState("all");
   const [categories, setCategories] = useState<Category[]>([]);
+  const [isSeeding, setIsSeeding] = useState(false);
 
   useEffect(() => {
     fetchItems();
@@ -38,6 +39,18 @@ export default function InventoryPage() {
     }
   }
 
+  async function handleSeedItems() {
+    setIsSeeding(true);
+    try {
+      await fetch("/api/seed-items", { method: "POST" });
+      await fetchItems();
+    } catch (error) {
+      console.error("Failed to seed items:", error);
+    } finally {
+      setIsSeeding(false);
+    }
+  }
+
   const filteredItems = items.filter((item) => {
     const matchesSearch = item.name.toLowerCase().includes(search.toLowerCase()) || 
                           (item.brand && item.brand.toLowerCase().includes(search.toLowerCase()));
@@ -56,9 +69,18 @@ export default function InventoryPage() {
             Manage your household items, electronics, and valuables.
           </p>
         </div>
-        <Link href="/inventory/new" className="btn-primary flex items-center gap-2">
-          <span>➕</span> Add Item
-        </Link>
+        <div className="flex gap-3">
+          <button 
+            onClick={handleSeedItems} 
+            disabled={isSeeding}
+            className="btn-secondary flex items-center gap-2"
+          >
+            {isSeeding ? "Generating..." : "🧪 Test Run"}
+          </button>
+          <Link href="/inventory/new" className="btn-primary flex items-center gap-2">
+            <span>➕</span> Add Item
+          </Link>
+        </div>
       </div>
 
       {/* Filters and Stats */}
