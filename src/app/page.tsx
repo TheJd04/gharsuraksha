@@ -34,7 +34,10 @@ export default function LandingPage() {
       </motion.nav>
 
       {/* Hero Section */}
-      <section className="relative min-h-screen w-full overflow-hidden bg-[var(--background)] flex items-center">
+      <section 
+        className="relative min-h-screen w-full overflow-hidden bg-[var(--background)] flex items-center bg-cover bg-center"
+        style={{ backgroundImage: 'linear-gradient(to right, rgba(13, 11, 9, 0.95) 20%, rgba(13, 11, 9, 0.6) 80%), url("/landing-bg.png")' }}
+      >
         {/* Background Text */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 pointer-events-none w-full text-center overflow-hidden">
           <span className="font-heading font-extrabold text-[clamp(80px,20vw,360px)] leading-none text-white opacity-[0.02] whitespace-nowrap tracking-tighter block">
