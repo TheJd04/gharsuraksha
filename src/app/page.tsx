@@ -13,18 +13,18 @@ export default function LandingPage() {
   if (!isMounted) return null;
 
   return (
-    <div className="min-h-screen bg-[#221611] font-sans text-[#f5f5f5] selection:bg-[#c87a32] selection:text-white">
+    <div className="min-h-screen bg-[#0f1219] font-sans text-[#f5f5f5] selection:bg-[#2a5cd4] selection:text-white">
       {/* 1. Navbar */}
       <motion.nav
         initial={{ y: -68 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className="sticky top-0 w-full z-50 bg-[#221611] border-b border-[rgba(200,122,50,0.2)] h-[68px] flex items-center justify-between px-6"
+        className="sticky top-0 w-full z-50 bg-[#0f1219] border-b border-[rgba(42,92,212,0.2)] h-[68px] flex items-center justify-between px-6"
       >
         <div className="font-heading font-bold text-[17px] text-[#f5f5f5]">
           Summit Roofing
         </div>
-        <div className="hidden md:flex items-center gap-6 font-sans font-normal text-[14px] text-[#d1bba8]">
+        <div className="hidden md:flex items-center gap-6 font-sans font-normal text-[14px] text-[#c0cce0]">
           <Link href="#services" className="hover:text-white transition-colors">Services</Link>
           <Link href="#materials" className="hover:text-white transition-colors">Materials</Link>
           <Link href="#emergency" className="hover:text-white transition-colors">Emergency</Link>
@@ -32,17 +32,17 @@ export default function LandingPage() {
           <Link href="#quote" className="hover:text-white transition-colors">Quote</Link>
         </div>
         <div>
-          <Link href="#quote" className="bg-[#c87a32] text-white font-sans font-normal text-[14px] px-6 py-2.5 rounded-[4px] hover:scale-[1.03] transition-transform duration-150 inline-block">
+          <Link href="#quote" className="bg-[#2a5cd4] text-white font-sans font-normal text-[14px] px-6 py-2.5 rounded-[4px] hover:scale-[1.03] transition-transform duration-150 inline-block">
             Get a Free Quote
           </Link>
         </div>
       </motion.nav>
 
       {/* 2. Hero */}
-      <section className="relative min-h-[100vh] w-full overflow-hidden bg-[#221611]">
+      <section className="relative min-h-[100vh] w-full overflow-hidden bg-[#0f1219]">
         {/* Background Image */}
         <img 
-          src="https://images.unsplash.com/photo-1518780664697-55e3ad937233?auto=format&fit=crop&q=80&w=2500" 
+          src="https://images.unsplash.com/photo-1632759145351-1d592919f522?auto=format&fit=crop&q=80&w=2500" 
           alt="Aerial view of premium slate roof installation on London terraced house" 
           style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} 
         />
@@ -50,7 +50,7 @@ export default function LandingPage() {
         {/* Gradient overlay */}
         <div 
           className="absolute inset-0 z-[1]" 
-          style={{ background: 'linear-gradient(to right, rgba(34,22,17,0.93) 0%, rgba(34,22,17,0.72) 55%, transparent 100%)' }}
+          style={{ background: 'linear-gradient(to right, rgba(15,18,25,0.93) 0%, rgba(15,18,25,0.72) 55%, transparent 100%)' }}
         ></div>
 
         {/* Background text "SUMMIT" */}
@@ -62,7 +62,7 @@ export default function LandingPage() {
 
         {/* Content panel */}
         <div className="absolute left-0 top-0 h-full w-full md:w-[54%] z-10 pl-[clamp(24px,6vw,96px)] flex flex-col justify-center">
-          <div className="font-sans font-light text-[13px] tracking-[0.14em] uppercase text-[#d4a37a] mb-4">
+          <div className="font-sans font-light text-[13px] tracking-[0.14em] uppercase text-[#7a9cd4] mb-4">
             AWARD-WINNING ROOFING CONTRACTORS
           </div>
           
@@ -80,7 +80,7 @@ export default function LandingPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
-            className="font-sans font-normal text-[18px] text-[#d1bba8] mt-[20px] max-w-[460px] leading-[1.6]"
+            className="font-sans font-normal text-[18px] text-[#c0cce0] mt-[20px] max-w-[460px] leading-[1.6]"
           >
             Award-winning roofing contractors for London and the South East. 500+ roofs completed. 15-year workmanship guarantee.
           </motion.p>
@@ -91,7 +91,7 @@ export default function LandingPage() {
             transition={{ duration: 0.6, delay: 0.5, ease: "easeOut" }}
             className="flex flex-col sm:flex-row gap-[12px] mt-[32px]"
           >
-            <Link href="#quote" className="bg-[#c87a32] text-white font-sans font-normal text-[15px] px-[28px] py-[14px] rounded-[4px] text-center inline-block">
+            <Link href="#quote" className="bg-[#2a5cd4] text-white font-sans font-normal text-[15px] px-[28px] py-[14px] rounded-[4px] text-center inline-block">
               Get a Free Quote
             </Link>
             <Link href="#emergency" className="bg-transparent border border-[rgba(255,255,255,0.4)] text-[#f5f5f5] font-sans font-normal text-[15px] px-[28px] py-[14px] rounded-[4px] text-center inline-flex items-center justify-center gap-[8px]">
@@ -109,10 +109,10 @@ export default function LandingPage() {
               { value: 4.9, suffix: "★", label: "Google Rating", decimals: 1 }
             ].map((stat, i) => (
               <div key={i} className="flex flex-col">
-                <div className="font-heading font-bold text-[56px] text-[#c87a32] leading-[1]">
+                <div className="font-heading font-bold text-[56px] text-[#2a5cd4] leading-[1]">
                   <CountUp end={stat.value} decimals={stat.decimals || 0} duration={2} enableScrollSpy scrollSpyOnce />{stat.suffix}
                 </div>
-                <div className="font-sans font-light text-[13px] text-[#d4a37a] tracking-[0.06em] uppercase">
+                <div className="font-sans font-light text-[13px] text-[#7a9cd4] tracking-[0.06em] uppercase">
                   {stat.label}
                 </div>
               </div>
@@ -122,8 +122,8 @@ export default function LandingPage() {
       </section>
 
       {/* 3. Services */}
-      <section id="services" className="bg-[#221611] py-[80px] px-[clamp(24px,6vw,96px)]">
-        <div className="font-sans font-light text-[12px] tracking-[0.14em] uppercase text-[#c87a32] mb-[48px]">
+      <section id="services" className="bg-[#0f1219] py-[80px] px-[clamp(24px,6vw,96px)]">
+        <div className="font-sans font-light text-[12px] tracking-[0.14em] uppercase text-[#2a5cd4] mb-[48px]">
           OUR SERVICES
         </div>
         <h2 className="font-heading font-bold text-[clamp(32px,4vw,60px)] text-[#f5f5f5] mb-0">
@@ -141,15 +141,15 @@ export default function LandingPage() {
               key={i}
               whileHover={{ y: -4 }}
               transition={{ duration: 0.2, ease: "easeOut" }}
-              className="flex flex-col md:flex-row justify-between md:items-center cursor-pointer border-t-[0.5px] border-[rgba(255,255,255,0.1)] py-[32px] hover:border-l-[3px] hover:border-l-[#c87a32] hover:pl-[16px] hover:shadow-[0_4px_20px_rgba(200,122,50,0.25)] transition-all duration-150 group"
+              className="flex flex-col md:flex-row justify-between md:items-center cursor-pointer border-t-[0.5px] border-[rgba(255,255,255,0.1)] py-[32px] hover:border-l-[3px] hover:border-l-[#2a5cd4] hover:pl-[16px] hover:shadow-[0_4px_20px_rgba(42,92,212,0.25)] transition-all duration-150 group"
             >
               <div className="md:w-2/3">
                 <h3 className="font-heading font-bold text-[22px] text-[#f5f5f5]">{srv.name}</h3>
-                <p className="font-sans font-normal text-[15px] text-[#a89483] mt-[6px]">{srv.desc}</p>
+                <p className="font-sans font-normal text-[15px] text-[#8a9ab4] mt-[6px]">{srv.desc}</p>
               </div>
               <div className="flex items-center gap-[16px] mt-4 md:mt-0">
-                <span className="font-sans font-light text-[14px] text-[#d4a37a]">{srv.price}</span>
-                <span className="text-[#c87a32] text-[24px]">→</span>
+                <span className="font-sans font-light text-[14px] text-[#7a9cd4]">{srv.price}</span>
+                <span className="text-[#2a5cd4] text-[24px]">→</span>
               </div>
             </motion.div>
           ))}
@@ -157,7 +157,7 @@ export default function LandingPage() {
       </section>
 
       {/* 4. Material Cards */}
-      <section id="materials" className="bg-[#2d1f17] py-[80px] px-[clamp(24px,6vw,96px)]">
+      <section id="materials" className="bg-[#111827] py-[80px] px-[clamp(24px,6vw,96px)]">
         <h2 className="font-heading font-bold text-[clamp(32px,4vw,60px)] text-[#f5f5f5] mb-[48px]">
           ROOFING MATERIALS
         </h2>
@@ -170,19 +170,19 @@ export default function LandingPage() {
           ].map((mat, i) => (
             <motion.div
               key={i}
-              whileHover={{ scale: 1.02, boxShadow: "0 8px 40px rgba(200,122,50,0.3)" }}
+              whileHover={{ scale: 1.02, boxShadow: "0 8px 40px rgba(42,92,212,0.3)" }}
               transition={{ duration: 0.25, ease: "easeOut" }}
               className="relative overflow-hidden rounded-[8px] cursor-pointer flex-1 group"
             >
               <img src={mat.img} alt={mat.name} style={{ width: '100%', aspectRatio: '4/3', objectFit: 'cover', objectPosition: 'center' }} />
-              <div style={{ background: 'linear-gradient(to top, rgba(34,22,17,0.92) 0%, transparent 60%)' }} className="absolute inset-0"></div>
+              <div style={{ background: 'linear-gradient(to top, rgba(15,18,25,0.92) 0%, transparent 60%)' }} className="absolute inset-0"></div>
               <div className="absolute bottom-0 p-[24px] z-10 w-full">
                 <h3 className="font-heading font-bold text-[22px] text-[#f5f5f5]">{mat.name}</h3>
-                <p className="font-sans font-light text-[14px] text-[#a89483] mt-1">{mat.desc}</p>
-                <div className="font-sans font-light text-[13px] text-[#c87a32] mt-[8px]">
+                <p className="font-sans font-light text-[14px] text-[#8a9ab4] mt-1">{mat.desc}</p>
+                <div className="font-sans font-light text-[13px] text-[#2a5cd4] mt-[8px]">
                   {mat.life}
                 </div>
-                <button className="bg-[#c87a32] text-white font-sans font-normal text-[13px] px-[16px] py-[8px] rounded-[4px] mt-[12px]">
+                <button className="bg-[#2a5cd4] text-white font-sans font-normal text-[13px] px-[16px] py-[8px] rounded-[4px] mt-[12px]">
                   Book a Survey
                 </button>
               </div>
@@ -192,7 +192,7 @@ export default function LandingPage() {
       </section>
 
       {/* 5. Trust Badges Strip */}
-      <div className="w-full bg-[#c87a32] py-[24px] px-[clamp(24px,6vw,96px)] flex flex-wrap justify-center items-center gap-x-[48px] gap-y-[16px]">
+      <div className="w-full bg-[#2a5cd4] py-[24px] px-[clamp(24px,6vw,96px)] flex flex-wrap justify-center items-center gap-x-[48px] gap-y-[16px]">
         {["NFRC Member", "TrustMark Approved", "Which? Trusted Trader", "15yr Guarantee", "All Work Insured", "500+ Roofs"].map((badge, i) => (
           <div key={i} className="flex items-center gap-[8px]">
             <CheckCircle className="w-[16px] h-[16px] text-white" />
@@ -203,13 +203,13 @@ export default function LandingPage() {
       </div>
 
       {/* 6. Quote Process */}
-      <section className="bg-[#221611] py-[80px] px-[clamp(24px,6vw,96px)] relative">
+      <section className="bg-[#0f1219] py-[80px] px-[clamp(24px,6vw,96px)] relative">
         <h2 className="font-heading font-bold text-[clamp(32px,4vw,56px)] text-[#f5f5f5] mb-[60px] text-center md:text-left">
           HOW IT WORKS
         </h2>
 
         <div className="relative flex flex-col md:flex-row gap-0">
-          <div className="hidden md:block absolute top-[40px] left-[16.6%] right-[16.6%] h-[1px]" style={{ background: 'linear-gradient(to right, transparent, #c87a32, transparent)' }}></div>
+          <div className="hidden md:block absolute top-[40px] left-[16.6%] right-[16.6%] h-[1px]" style={{ background: 'linear-gradient(to right, transparent, #2a5cd4, transparent)' }}></div>
 
           {[
             { num: "1", badge: "01", label: "FIRST STEP", title: "Free Survey", desc: "We visit your property, inspect the roof from ground and access point, and give you an honest assessment." },
@@ -224,19 +224,19 @@ export default function LandingPage() {
               transition={{ duration: 0.6, delay: idx * 0.18, ease: "easeOut" }}
               className="flex-1 flex flex-col items-center text-center p-[24px]"
             >
-              <div className="font-heading font-extrabold text-[80px] text-[#c87a32] opacity-10 mb-[-16px] leading-[1]">
+              <div className="font-heading font-extrabold text-[80px] text-[#2a5cd4] opacity-10 mb-[-16px] leading-[1]">
                 {step.num}
               </div>
-              <div className="w-[40px] h-[40px] bg-[#c87a32] rounded-full font-sans font-normal text-[16px] text-white flex items-center justify-center z-10">
+              <div className="w-[40px] h-[40px] bg-[#2a5cd4] rounded-full font-sans font-normal text-[16px] text-white flex items-center justify-center z-10">
                 {step.badge}
               </div>
-              <div className="font-sans font-light text-[13px] tracking-[0.1em] uppercase text-[#d4a37a] mt-[16px]">
+              <div className="font-sans font-light text-[13px] tracking-[0.1em] uppercase text-[#7a9cd4] mt-[16px]">
                 {step.label}
               </div>
               <h3 className="font-heading font-bold text-[20px] text-[#f5f5f5] mt-[8px]">
                 {step.title}
               </h3>
-              <p className="font-sans font-normal text-[15px] text-[#a89483] leading-[1.6] mt-3">
+              <p className="font-sans font-normal text-[15px] text-[#8a9ab4] leading-[1.6] mt-3">
                 {step.desc}
               </p>
             </motion.div>
@@ -245,7 +245,7 @@ export default function LandingPage() {
       </section>
 
       {/* 7. Emergency Section */}
-      <section id="emergency" className="bg-[#221611] py-[80px] px-[clamp(24px,6vw,96px)] border-t-[2px] border-[#e53e3e]">
+      <section id="emergency" className="bg-[#0f1219] py-[80px] px-[clamp(24px,6vw,96px)] border-t-[2px] border-[#e53e3e]">
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -260,21 +260,21 @@ export default function LandingPage() {
             EMERGENCY ROOFING — <br className="hidden md:block"/>48hr RESPONSE
           </h2>
           
-          <p className="font-sans font-normal text-[17px] text-[#a89483] mt-[16px] max-w-[580px] leading-[1.7]">
+          <p className="font-sans font-normal text-[17px] text-[#8a9ab4] mt-[16px] max-w-[580px] leading-[1.7]">
             Storm damage? Leak? Active water ingress? We know it can't wait. Call us now and we'll have a roofer with you within 48 hours — usually sooner.
           </p>
 
           <div className="font-heading font-extrabold text-[clamp(36px,5vw,80px)] text-[#f5f5f5] mt-[32px] leading-none">
             0800 123 4567
           </div>
-          <div className="font-sans font-light text-[14px] text-[#d4a37a] mt-2">
+          <div className="font-sans font-light text-[14px] text-[#7a9cd4] mt-2">
             Free to call · 8am–8pm Mon–Sat
           </div>
 
           <motion.button 
             whileHover={{ scale: 1.04 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="bg-[#c87a32] text-white font-sans font-normal text-[15px] px-[32px] py-[16px] rounded-[4px] mt-[24px]"
+            className="bg-[#2a5cd4] text-white font-sans font-normal text-[15px] px-[32px] py-[16px] rounded-[4px] mt-[24px]"
           >
             Get Emergency Help
           </motion.button>
@@ -288,27 +288,27 @@ export default function LandingPage() {
       </section>
 
       {/* 8. Testimonial */}
-      <section className="bg-[#2d1f17] py-[80px] px-[clamp(24px,6vw,96px)] text-center md:text-left flex flex-col items-center md:items-start">
-        <div className="text-[#c87a32] text-[20px] mb-[24px] tracking-[4px]">
+      <section className="bg-[#111827] py-[80px] px-[clamp(24px,6vw,96px)] text-center md:text-left flex flex-col items-center md:items-start">
+        <div className="text-[#2a5cd4] text-[20px] mb-[24px] tracking-[4px]">
           ★★★★★
         </div>
         <blockquote className="font-heading font-bold text-[clamp(24px,3.5vw,48px)] text-[#f5f5f5] italic leading-[1.3] max-w-4xl">
           "Summit re-roofed our Victorian terrace and the finish is exceptional. Tidy, professional, and on time."
         </blockquote>
-        <div className="font-sans font-light text-[15px] text-[#d4a37a] mt-[20px]">
+        <div className="font-sans font-light text-[15px] text-[#7a9cd4] mt-[20px]">
           — David K., Wimbledon
         </div>
       </section>
 
       {/* 9. Blue CTA */}
-      <section id="quote" className="bg-[#c87a32] py-[80px] px-[clamp(24px,6vw,96px)] text-center">
+      <section id="quote" className="bg-[#2a5cd4] py-[80px] px-[clamp(24px,6vw,96px)] text-center">
         <h2 className="font-heading font-extrabold text-[clamp(40px,6vw,96px)] text-white leading-none">
           GET YOUR FREE SURVEY
         </h2>
         <p className="font-sans font-normal text-[17px] text-[rgba(255,255,255,0.85)] mt-[16px] max-w-2xl mx-auto">
           No obligation. Written quote within 24 hours. Work guaranteed for 15 years.
         </p>
-        <button className="bg-white text-[#c87a32] font-heading font-bold text-[16px] px-[40px] py-[20px] rounded-[4px] mt-[40px] hover:bg-[#221611] hover:text-white transition-colors duration-200">
+        <button className="bg-white text-[#2a5cd4] font-heading font-bold text-[16px] px-[40px] py-[20px] rounded-[4px] mt-[40px] hover:bg-[#0f1219] hover:text-white transition-colors duration-200">
           Book Free Survey
         </button>
         <div className="font-sans font-light text-[13px] text-[rgba(255,255,255,0.7)] mt-[16px]">
@@ -317,7 +317,7 @@ export default function LandingPage() {
       </section>
 
       {/* 10. Footer */}
-      <footer className="bg-[#160d09] border-t border-[rgba(200,122,50,0.2)] py-[48px] px-[clamp(24px,6vw,96px)] pb-[32px]">
+      <footer className="bg-[#080c12] border-t border-[rgba(42,92,212,0.2)] py-[48px] px-[clamp(24px,6vw,96px)] pb-[32px]">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-[40px]">
           <div>
             <div className="font-heading font-bold text-[17px] text-[#f5f5f5]">Summit Roofing</div>
